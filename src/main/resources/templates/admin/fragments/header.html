@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Quản lý Admin</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header img {
+            max-width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img alt="Admin Logo" style="width: 100px; height: auto;" th:src="@{/images/me.jpg}">
+    <h1>Admin Header</h1>
+    <nav>
+        <ul>
+            <li><a th:href="@{/admin/categories}">Danh Mục</a></li>
+            <li><a th:href="@{/admin/users}">Người Dùng</a></li>
+        </ul>
+    </nav>
+</header>
+
+</body>
+</html>

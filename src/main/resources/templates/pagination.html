@@ -1,0 +1,31 @@
+<div class="card-footer text-muted">
+  <div class="row">
+    <div class="col-3">
+      <form action="">
+        <div class="mb-3 input-group float-left">
+          <label for="size" class="mr-2">Page size:</label>
+          <select class="form-select ml-2" name="size" aria-label="size" id="size" onchange="this.form.submit()">
+            <option th:selected="${categoryPage.size == 3}" value="3">3</option>
+            <option th:selected="${categoryPage.size == 5}" value="5">5</option>
+            <option th:selected="${categoryPage.size == 10}" value="10">10</option>
+            <option th:selected="${categoryPage.size == 15}" value="15">15</option>
+            <option th:selected="${categoryPage.size == 20}" value="20">20</option>
+          </select>
+        </div>
+      </form>
+    </div>
+    <div class="col-7">
+      <nav aria-label="Page navigation" th:if="${categoryPage.totalPages > 0}" class="pagination justify-content-center">
+        <li th:class="${1 == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a th:href="@{/admin/categories/searchpaginated(name=${name},size=${categoryPage.size},page=${1})}" class="page-link">First</a>
+        </li>
+        <li th:each="pageNumber : ${pageNumbers}" th:if="${categoryPage.totalPages > 1}" th:class="${pageNumber == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a th:href="@{/admin/categories/searchpaginated(name=${name},size=${categoryPage.size},page=${pageNumber})}" class="page-link" th:text="${pageNumber}"></a>
+        </li>
+        <li th:class="${categoryPage.totalPages == categoryPage.number + 1} ? 'page-item active' : 'page-item'">
+          <a th:href="@{/admin/categories/searchpaginated(name=${name},size=${categoryPage.size},page=${categoryPage.totalPages})}" class="page-link">Last</a>
+        </li>
+      </nav>
+    </div>
+  </div>
+</div>

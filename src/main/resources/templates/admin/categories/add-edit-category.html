@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html layout:decorate="~{admin/Layout-admin.html}" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${category.isEdit} ? 'Edit Category' : 'Add New Category'"></title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"> <!-- Thay đổi đường dẫn nếu cần -->
+    <link rel="stylesheet" th:href="@{/css/styles.css}"> <!-- Thêm file CSS tùy chỉnh -->
+    <style>
+        body {
+            background-color: #f0f2f5; /* Màu nền nhẹ nhàng */
+        }
+
+        .card {
+            border: none; /* Không có viền */
+            border-radius: 10px; /* Bo tròn các góc của card */
+        }
+
+        .card-header {
+            background-color: #007bff; /* Màu nền cho header */
+            color: white; /* Màu chữ cho header */
+            border-top-left-radius: 10px; /* Bo tròn góc trên bên trái */
+            border-top-right-radius: 10px; /* Bo tròn góc trên bên phải */
+        }
+
+        .btn-primary {
+            background-color: #0056b3; /* Màu nền cho nút Save */
+            border-color: #0056b3; /* Đường viền cho nút Save */
+            transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+        }
+
+        .btn-primary:hover {
+            background-color: #004085; /* Màu nền khi hover */
+            border-color: #004085; /* Đường viền khi hover */
+        }
+
+        .form-label {
+            font-weight: bold; /* Đậm chữ cho nhãn */
+        }
+
+        .form-text {
+            font-size: 0.9em; /* Kích thước chữ nhỏ hơn cho thông báo */
+        }
+
+        /* Thêm khoảng cách cho nút hủy */
+        .btn-secondary {
+            margin-left: 10px; /* Khoảng cách bên trái */
+        }
+    </style>
+</head>
+<body>
+<section class="row" layout:fragment="content">
+    <div class="col-12 col-md-8 col-lg-6 mx-auto mt-5">
+        <div class="card shadow">
+            <div class="card-header text-center">
+                <h2 class="mb-0" th:text="${category.isEdit} ? 'Edit Category' : 'Add New Category'">Add New
+                    Category</h2>
+            </div>
+            <form method="POST" th:action="@{/admin/categories/saveOrUpdate}" th:object="${category}">
+                <div class="card-body">
+                    <!-- Hiển thị Category ID chỉ khi đang ở chế độ chỉnh sửa -->
+                    <div class="mb-3" th:if="${category.isEdit}">
+                        <label class="form-label" for="categoryId">Category ID:</label>
+                        <input class="form-control" id="categoryId" name="categoryId" placeholder="Category Id" readonly
+                               th:field="*{categoryId}" type="text">
+                        <div class="form-text text-danger" th:if="${#fields.hasErrors('categoryId')}">
+                            Category ID is required!
+                        </div>
+                    </div>
+
+                    <!-- Trường nhập tên danh mục -->
+                    <div class="mb-3">
+                        <label class="form-label" for="name">Category Name:</label>
+                        <input class="form-control" id="name" name="name" placeholder="Category Name" required
+                               th:field="*{name}" type="text">
+                        <div class="form-text text-danger" th:if="${#fields.hasErrors('name')}">
+                            Category Name is required!
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-secondary" th:href="@{/admin/categories/list}">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+</body>
+</html>
